@@ -22,7 +22,8 @@ router.prefix(`/${baseApi}/${api}`)
  *       "reasonOfVisit": "Pain in chest, difficult to breathe.",
  *       "consult": "Sent to hospital for more detailed checkup",
  *       "dateOfVisit": "2017-10-02T10:39:22.263Z",
- *       "prescribedMedication": []
+ *       "patient": "59d8c84406b5eb5738f33f26",
+ *       "prescribedMedication": [],
  *       "updatedAt": "2017-10-08T09:24:21.263Z",
  *       "updatedAt": "2017-10-08T09:24:21.263Z",
  *     },
@@ -31,7 +32,8 @@ router.prefix(`/${baseApi}/${api}`)
  *       "reasonOfVisit": "Headaches, unable to sleep",
  *       "consult": "Take more sleep, using prescribed pills",
  *       "dateOfVisit": "2017-10-08T10:39:22.263Z",
- *       "prescribedMedication": []
+ *       "patient": "59d8c84406b5eb7844f33f27",
+ *       "prescribedMedication": [],
  *       "updatedAt": "2017-10-08T10:42:37.263Z",
  *       "createdAt": "2017-10-08T10:42:37.263Z"
  *     }]
@@ -54,7 +56,8 @@ router.get('/', async(ctx) =>
  *       "reasonOfVisit": "Headaches, unable to sleep",
  *       "consult": "Take more sleep, using prescribed pills",
  *       "dateOfVisit": "2017-10-08T10:39:22.263Z",
- *       "prescribedMedication": []
+ *       "patient": "59d8c84406b5eb7844f33f27",
+ *       "prescribedMedication": [],
  *       "updatedAt": "2017-10-08T10:42:37.263Z",
  *       "createdAt": "2017-10-08T10:42:37.263Z"
  *     }
@@ -64,19 +67,22 @@ router.get('/', async(ctx) =>
  *     {
  *       "reasonOfVisit": "Headaches, unable to sleep",
  *       "consult": "Take more sleep, using prescribed pills",
+ *       "patient": "59d8c84406b5eb7844f33f27",
  *       "dateOfVisit": "2017-10-08T10:39:22.263Z",
  *       "prescribedMedication": []
  *     }
  * @apiParam {String} reasonOfVisit Reason of the Visit.
  * @apiParam {String} consult       Given consult.
+ * @apiParam {String} patient    ID of `Patient` that visited. This field will always be returned as an ID.
  * @apiParam {Date} [dateOfVisit=Date.now()]    Date of the visit.
- * @apiParam {Array} [prescribedMedication]        `Medication` _id's of all prescribed medicines.
+ * @apiParam {Array} [prescribedMedication]   `Medication` _id's of all prescribed medicines.
  */
 router.post('/', async(ctx) => {
   try {
     const visit = await new Visit(ctx.request.body).save()
     ctx.body = visit
   } catch (err) {
+    console.error('[Visit] Error during POST ', err.message);
     ctx.throw(422)
   }
 })
@@ -92,6 +98,7 @@ router.post('/', async(ctx) => {
  *       "reasonOfVisit": "Headaches, unable to sleep",
  *       "consult": "Take more sleep, using prescribed pills",
  *       "dateOfVisit": "2017-10-08T10:39:22.263Z",
+ *       "patient": "59d8c84406b5eb7844f33f27",
  *       "prescribedMedication": [],
  *       "updatedAt": "2017-10-08T10:42:37.263Z",
  *       "createdAt": "2017-10-08T10:42:37.263Z"
@@ -108,6 +115,8 @@ router.get('/:id', async(ctx) => {
     }
     ctx.body = visit
   } catch (err) {
+    console.error('[Visit] Error during GET ', err.message);
+
     if (err.name === 'CastError' || err.name === 'NotFoundError') {
       ctx.throw(404)
     }
@@ -130,6 +139,7 @@ router.get('/:id', async(ctx) => {
  *       "reasonOfVisit": "Headaches, unable to sleep properly for two weeks now.",
  *       "consult": "Take more sleep, using prescribed pills. Come back in one week.",
  *       "dateOfVisit": "2017-10-08T10:39:22.263Z",
+ *       "patient": "59d8c84406b5eb7844f33f27",
  *       "prescribedMedication": [{
  *           "updatedAt": "2017-10-08T11:40:29.178Z",
  *           "createdAt": "2017-10-08T11:40:29.178Z",
@@ -153,6 +163,7 @@ router.get('/:id', async(ctx) => {
  *     }
  * @apiParam {String} reasonOfVisit Reason of the Visit.
  * @apiParam {String} consult       Given consult.
+ * @apiParam {String} patient    ID of `Patient` that visited. This field will always be returned as an ID. 
  * @apiParam {Date} [dateOfVisit=Date.now()]    Date of the visit.
  * @apiParam {Array} [prescribedMedication]        `Medication` _id's of all prescribed medicines.
  */
@@ -164,6 +175,8 @@ router.put('/:id', async(ctx) => {
     }
     ctx.body = visit
   } catch (err) {
+    console.error('[Visit] Error during PUT ', err.message);
+
     if (err.name === 'CastError' || err.name === 'NotFoundError') {
       ctx.throw(404)
     }
@@ -185,6 +198,8 @@ router.delete('/:id', async(ctx) => {
     }
     ctx.body = visit
   } catch (err) {
+    console.error('[Visit] Error during DELETE ', err.message);
+
     if (err.name === 'CastError' || err.name === 'NotFoundError') {
       ctx.throw(404)
     }

@@ -73,6 +73,8 @@ router.post('/', async(ctx) => {
     const medication = await new Medication(ctx.request.body).save()
     ctx.body = medication
   } catch (err) {
+    console.error('[Medication] Error during POST', err.message);
+
     ctx.throw(422)
   }
 })
@@ -103,6 +105,8 @@ router.get('/:id', async(ctx) => {
     }
     ctx.body = medication
   } catch (err) {
+    console.error('[Medication] Error during GET ', err.message);
+
     if (err.name === 'CastError' || err.name === 'NotFoundError') {
       ctx.throw(404)
     }
@@ -148,6 +152,8 @@ router.put('/:id', async(ctx) => {
     }
     ctx.body = medication
   } catch (err) {
+    console.error('[Medication] Error during PUT ', err.message);
+    
     if (err.name === 'CastError' || err.name === 'NotFoundError') {
       ctx.throw(404)
     }
@@ -169,6 +175,8 @@ router.delete('/:id', async(ctx) => {
     }
     ctx.body = medication
   } catch (err) {
+    console.error('[Medication] Error during DELETE', err.message);
+    
     if (err.name === 'CastError' || err.name === 'NotFoundError') {
       ctx.throw(404)
     }

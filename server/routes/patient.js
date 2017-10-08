@@ -82,6 +82,8 @@ router.post('/', async(ctx) => {
     const patient = await new Patient(ctx.request.body).save()
     ctx.body = patient
   } catch (err) {
+    console.error('[Patient] Error during POST ', err.message);
+
     ctx.throw(422)
   }
 })
@@ -115,6 +117,8 @@ router.get('/:id', async(ctx) => {
     }
     ctx.body = patient
   } catch (err) {
+    console.error('[Patient] Error during GET ', err.message);
+
     if (err.name === 'CastError' || err.name === 'NotFoundError') {
       ctx.throw(404)
     }
@@ -176,6 +180,8 @@ router.put('/:id', async(ctx) => {
     }
     ctx.body = patient
   } catch (err) {
+    console.error('[Patient] Error during PUT ', err.message);
+
     if (err.name === 'CastError' || err.name === 'NotFoundError') {
       ctx.throw(404)
     }
@@ -197,6 +203,8 @@ router.delete('/:id', async(ctx) => {
     }
     ctx.body = patient
   } catch (err) {
+    console.error('[Patient] Error during DELETE ', err.message);
+
     if (err.name === 'CastError' || err.name === 'NotFoundError') {
       ctx.throw(404)
     }
