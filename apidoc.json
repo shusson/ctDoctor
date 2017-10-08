@@ -1,0 +1,9 @@
+{
+    "name": "CTdoctor",
+    "version": "1.0.0",
+    "description": "API documentation for CTdoctor",
+    "apidoc": {
+      "title": "CTdoctor API",
+      "url" : "http://localhost:3000"
+    }
+}

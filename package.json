@@ -1,0 +1,44 @@
+{
+  "name": "ctdoctor-assignment",
+  "description": "CTcue frontend assignment API",
+  "version": "1.0.0",
+  "author": "berndvdveen",
+  "keywords": [
+    "koa",
+    "rest",
+    "api",
+    "mongodb",
+    "mongoose",
+    "async",
+    "es7"
+  ],
+  "main": "server/index.js",
+  "scripts": {
+    "start": "nodemon server/ --exec babel-node",
+    "build": "babel server -d dist",
+    "lint": "eslint ./server",
+    "prod": "npm run build && node dist/"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-eslint": "^5.0.0-beta10",
+    "babel-plugin-syntax-async-functions": "^6.5.0",
+    "babel-plugin-transform-async-to-generator": "^6.5.0",
+    "babel-polyfill": "^6.5.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.3.13",
+    "chai": "^3.5.0",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^5.0.1",
+    "koa": "^2.0.0-alpha.3",
+    "koa-bodyparser": "^3.0.0",
+    "koa-logger": "^2.0.0",
+    "koa-router": "^7.0.0",
+    "mongoose": "^4.4.3",
+    "nodemon": "^1.8.1",
+    "restc": "0.0.3",
+    "should": "^8.2.2",
+    "supertest": "^1.2.0",
+    "koa-static": "^4.0.1"
+  }
+}
