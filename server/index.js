@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 import restc from 'restc'
 import routing from './routes/'
 import { port, connectionString } from './config'
-
+import cors from '@koa/cors'
 
 mongoose.Promise = global.Promise;
 mongoose.connect(connectionString)
@@ -16,7 +16,8 @@ const app = new Koa();
 const serve = require('koa-static');
 
 app
-  .use(logger())
+  .use(cors())
+  .use(logger())  
   .use(serve('apidocs'))
   .use(restc.koa2())
   .use(bodyParser())
